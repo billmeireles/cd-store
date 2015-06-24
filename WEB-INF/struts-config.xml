@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+		<form-beans>
+				<form-bean name="searchForm" type="w3s.cdstore.forms.SearchRegister"></form-bean>
+		</form-beans>
+	
+		<global-forwards>
+				<forward name="error_message"         path="/erro.vm"/>
+		</global-forwards>
+
+		<action-mappings>
+			<action path="/consult"
+					type="w3s.cdstore.servlets.ServletActionAutoComplete"
+					name="searchForm"
+					scope="request"
+					validate="true"
+					input="/search.vm">
+					
+					<forward name="success_message"       path="/operacao_ok.vm"/>									
+			</action>
+		</action-mappings>
+			
+		<!-- =========================== Definindo Recurso de Mensagens ============================== -->
+		<message-resources parameter="ApplicationResources"
+			factory="org.apache.struts.util.PropertyMessageResourcesFactory"/>	
+
+		<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+				<set-property property="pathnames" value="/WEB-INF/validator-rules.xml, /WEB-INF/validation.xml"/>
+		</plug-in>	
+															
+</struts-config>
+

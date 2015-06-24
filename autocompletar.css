@@ -1,0 +1,43 @@
+form.autocompletar
+{
+        position:relative;
+        top:0;
+        left:0;
+}
+
+div#completando
+{
+        position:absolute;
+        top:1.5em;
+        left:0px;
+        background:white;
+}
+
+div#completando ul
+{
+        margin:0 1px;padding:0;
+        border:1px solid black;
+        list-style:none;
+}
+
+div#completando li
+{
+	display:inline
+}
+
+div#completando a
+{
+        display:block;
+        padding:1px 5px;
+}
+
+div#completando a:hover,div#completando li.selecionado a
+{
+        background:blue;
+        color:white;
+}
+
+.completeaqui,div#completando
+{
+        width:300px;
+}

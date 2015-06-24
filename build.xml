@@ -1,0 +1,112 @@
+<project name="CD_STORE" default="all" basedir=".">
+
+<!-- ========== Declarações dos Componentes ==================================== -->
+
+  <!-- The name of this component -->
+  <property name="project.name"          value="CD_STORE by Fabricio Meireles Monteiro"/>
+
+  <!-- The base directory for distribution targets -->
+  <property name="dist.home"             value="${basedir}/dist"/>
+
+  <!-- The base directory for compilation targets -->
+  <property name="build.home"            value="${basedir}/WEB-INF"/>
+
+  <!-- The base directory for component sources -->
+  <property name="source.home"           value="${basedir}/WEB-INF/src"/>
+
+  <!-- The base directory for component binary -->
+  <property name="classes.home"          value="${basedir}/WEB-INF/classes"/>
+
+  <!-- The local repository -->
+  <property name="local.repository"      value="${basedir}/WEB-INF/lib"/>
+  
+  <!-- Templates -->
+  <property name="templates.home"		 value="${basedir}/templates"/>
+
+<!-- ========== Declarações dos Componentes ==================================== -->
+
+  <!-- The name of this component -->
+  <property name="war.name"         	 value="CdStore.war" />
+
+<!-- ==+======== Padrões de Compilação ========================================= -->
+
+  <!-- Should Java compilations set the 'debug' compiler option -->
+  <property name="compile.debug"         value="true"/>
+
+  <!-- Should Java compilations set the 'deprecation' compiler option -->
+  <property name="compile.deprecation"   value="true"/>
+
+  <!-- Should Java compilations set the 'optimize' compiler option -->
+  <property name="compile.optimize"      value="true"/>
+
+  <!-- Should Java compilations set the 'encoding' compiler option -->
+  <property name="compile.encoding"      value="ISO-8859-1"/>
+
+  <!-- Construct compile classpath -->
+  <path id="classpath">
+    <fileset dir="${local.repository}">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
+
+<!-- ========== Targets Executáveis =======================================-->
+
+  <!-- ================================================================== -->
+  <!-- I N I T							  								  -->
+  <!-- ================================================================== -->
+  <target name="init" description="Initialize and evaluate conditionals">
+    <echo message="-------- ${project.name} --------"/>
+  </target>
+
+
+  <!-- ================================================================== -->
+  <!-- A L L						  									  -->
+  <!-- ================================================================== -->
+  <target name="all" depends="war" description="Build Application"/>
+
+
+  <!-- ================================================================== -->
+  <!-- C O M P I L E				  									  -->
+  <!-- ================================================================== -->
+  <target name="compile" depends="init" description="Compile">
+    <mkdir dir="${classes.home}"/>
+    <javac  srcdir="${source.home}"
+            destdir="${classes.home}"
+            debug="${compile.debug}"
+            deprecation="${compile.deprecation}"
+            optimize="${compile.optimize}"
+            encoding="${compile.encoding}">
+        	<classpath refid="classpath"/>
+    </javac>
+  	<!-- <copy file="${build.home}/ApplicationResources.properties" todir="${classes.home}"/> -->
+  	 <copy file="${build.home}/hibernate.cfg.xml" todir="${classes.home}"/>
+  	<copy file="${build.home}/TitleEntity.hbm.xml" todir="${classes.home}"/>  	
+  	<copy file="${build.home}/ApplicationResources.properties" todir="${classes.home}"/>
+  	  	
+  </target>
+  
+  <!-- ================================================================== -->
+  <!-- TEMPLATES				  									      -->
+  <!-- ================================================================== -->
+  <fileset dir="${templates.home}"></fileset>
+
+  <!-- ================================================================== -->
+  <!-- C L E A N						  								  -->
+  <!-- ================================================================== -->
+  <target name="clean" depends="" description="Clean build and distribution directories">
+    <delete dir="${dist.home}"/>
+    <delete dir="${classes.home}"/>
+  </target>
+
+
+  <!-- ================================================================== -->
+  <!-- W A R		 				  									  -->
+  <!-- ================================================================== -->
+  <target name="war" depends="clean, compile" description="Generate a *.war file of app">
+    <mkdir dir="${dist.home}"/>
+    <jar jarfile="${dist.home}/${war.name}" 
+         basedir="${basedir}"
+         excludes= "**/MANIFEST.MF, **/velocity-tools-1.2.tar.gz, **/*.java, **/servlet.jar, **/build.xml, **/templates/**, **/src/**, **/dist/**"/>
+  </target>
+
+</project>

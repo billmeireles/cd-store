@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+			"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package = "w3s.cdstore.beans">
+	
+	<class name="TitleEntity" table="Title">
+				
+		<!-- ===========================     unsaved-value:    ==================================
+		
+			"0" me diz que, no momento da chamada ao método saveOrUpdate(Object obj)
+			 se o atributo identificador do objeto estiver com valor 0 (zero) significa que ele 
+			 deve ser criado na tabela do banco de dados.	unsaved-value="0"> -->
+		<id name="idTitle" column="id_title" type="integer" unsaved-value="null">			
+			<generator class="native"/>
+		</id>				
+				
+		<!-- relacionando objetos (classes) com as entidades (tabelas) correspondentes -->
+		<property 
+			name="titleName" 
+			column="title_name"
+			type="string">
+		</property>
+	</class>	
+	 	 		 
+	<query name="searchTitleByName">
+		<![CDATA[from TitleEntity where title_name = :titleName]]>
+	</query>
+
+</hibernate-mapping>

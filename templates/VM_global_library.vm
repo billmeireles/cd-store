@@ -1,0 +1,34 @@
+## Mostra todos os erros do Struts
+#macro(errorMarkup)	       
+   #if($errors.exist())	       	
+   		<ul>
+   		   #foreach($e in $errors.all)
+ 			  <li>$e</li>
+ 	       #end
+ 	   	</ul>     			   
+ 	#end	       			
+#end       
+	
+	
+## Mostra os erros do Struts mas de um "property" em particular	
+#macro(errorMarkupForProperty $property)
+    #if($errors.exist($property))
+     
+        <ul>
+            #foreach($er in $errors.get($property))
+               $er
+            #end
+        </ul>
+
+     #end
+#end
+
+
+## #macro(errorMarkupForProperty $title	)
+#if($errors.exist($title))  
+    <ul>
+    	#foreach($er in $errors.get($title))
+           $er
+        #end
+    </ul>	
+#end 	
